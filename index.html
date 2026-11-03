@@ -123,9 +123,7 @@ h1{margin:10px 0 6px;font:700 clamp(44px,8vw,84px)/.9 var(--font-display);letter
 .cmdbox .miss{background:rgba(242,183,5,.22);color:#FFD76A;border-radius:3px;padding:0 3px}
 .actions{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
 .btn{font:600 15px var(--font-body);background:var(--accent);color:var(--on-accent);border:0;border-radius:6px;padding:12px 20px;cursor:pointer}
-.btn:disabled,.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
-a.btn{display:inline-block;text-decoration:none;line-height:1.55}
-.btn2{background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .status{font-size:14px;color:var(--ink-2);min-height:1.5em}
 .check{margin-top:14px;display:flex;flex-direction:column;gap:10px}
 .check label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
@@ -382,7 +380,7 @@ html.ship-cursor,html.ship-cursor *{cursor:none!important}
   <section class="wrap" id="buat">
     <div class="sec-head">
       <h2><span data-i="buatH">Buat perintah</span></h2>
-      <p class="sec-intro" data-i="buatIntro">Isi nama sheet kapal dan detail skill, lalu klik Buka di Claude Code. Perintah sudah terisi, tinggal tekan Enter.</p>
+      <p class="sec-intro" data-i="buatIntro">Isi nama sheet kapal dan detail skill, lalu salin perintah ke Claude Code di folder CS PROJECT.</p>
     </div>
     <div class="builder" id="builder">
       <div class="panel sel p-form">
@@ -399,14 +397,8 @@ html.ship-cursor,html.ship-cursor *{cursor:none!important}
         <p class="out-label" data-i="outLabel">Perintah</p>
         <div class="cmdbox" id="cmd" aria-live="polite"></div>
         <div class="actions">
-          <a class="btn" id="openCC" href="#" role="button" aria-disabled="true" data-i="openBtn">Buka di Claude Code</a>
-          <button class="btn btn2" id="copy" type="button" data-i="copyBtn">Salin perintah</button>
+          <button class="btn" id="copy" type="button" data-i="copyBtn">Salin perintah</button>
           <span class="status" id="copyStatus" role="status"></span>
-        </div>
-        <div class="fld">
-          <label for="cwd"><span data-i="cwdLabel">Folder kerja</span> <span class="opt" data-i="opt">opsional</span></label>
-          <input id="cwd" type="text" autocomplete="off" spellcheck="false" placeholder="C:\Users\nama\Desktop\CS PROJECT">
-          <p class="hint" data-i="cwdHint">Alamat folder CS PROJECT di komputer ini, diingat di browser ini. Kosong = Claude Code dibuka di folder utama pengguna.</p>
         </div>
       </div>
       <div class="panel p-before">
@@ -608,9 +600,9 @@ const UI = {
  id:{motionPause:'Jeda animasi',motionPlay:'Putar animasi',lede:'Perintah cepat untuk report PROFORMA LOADING<br>Customer Service Export<br>Jakarta Branch',
   sReport:'Report',sTerminal:'Terminal',sService:'Service',sActive:'Skill aktif',
   pilihH:'Pilih skill',pilihIntro:'Satu container, satu skill. Pilihan terakhir diingat di browser ini.',caption:'Nomor container hanya hiasan tampilan, bukan container sungguhan.',
-  buatH:'Buat perintah',buatIntro:'Isi nama sheet kapal dan detail skill, lalu klik Buka di Claude Code. Perintah sudah terisi, tinggal tekan Enter.',
+  buatH:'Buat perintah',buatIntro:'Isi nama sheet kapal dan detail skill, lalu salin perintah ke Claude Code di folder CS PROJECT.',
   sheetLabel:'Nama sheet kapal',req:'wajib',opt:'opsional',sheetHint:'Harus persis sama dengan nama sheet di report, contoh [vessel].[voyage].',
-  outLabel:'Perintah',copyBtn:'Salin perintah',openBtn:'Buka di Claude Code',cwdLabel:'Folder kerja',cwdHint:'Alamat folder CS PROJECT di komputer ini, diingat di browser ini. Kosong = Claude Code dibuka di folder utama pengguna.',opened:'Claude Code dibuka dengan perintah terisi. Tekan Enter di sana. Perintah juga sudah disalin.',tooLong:'Perintah lebih dari 5.000 karakter. Pakai Salin perintah.',need:'Lengkapi detail bertanda wajib dulu.',copied:'Perintah disalin. Tempel di Claude Code.',selected:'Perintah sudah terpilih. Tekan Ctrl+C untuk menyalin.',
+  outLabel:'Perintah',copyBtn:'Salin perintah',need:'Lengkapi detail bertanda wajib dulu.',copied:'Perintah disalin. Tempel di Claude Code.',selected:'Perintah sudah terpilih. Tekan Ctrl+C untuk menyalin.',
   beforeH:'Sebelum menjalankan',resultH:'Hasil',readyAll:'Siap dijalankan',readyN:(d,n)=>d+' dari '+n+' siap',chosen:'Dipilih',
   detail:c=>'Detail '+c,defPh:d=>'bawaan: '+d,defPhNo:'bawaan: kode kapal + .xls',scopeAll:'ALL (semua booking)',scopeX:'Booking tertentu',scopePh:'nomor booking, pisahkan dengan koma',
   footL:'PT HEUNGALINE INTERNASIONAL · Divisi CS Booking · Cabang Jakarta',upd:'Diperbarui',months:['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
@@ -624,9 +616,9 @@ const UI = {
  en:{motionPause:'Pause animation',motionPlay:'Play animation',lede:'Quick commands for the PROFORMA LOADING report<br>Customer Service Export<br>Jakarta Branch',
   sReport:'Report',sTerminal:'Terminal',sService:'Service',sActive:'Active skills',
   pilihH:'Choose a skill',pilihIntro:'One container per skill. Your last choice is remembered in this browser.',caption:'Container numbers are decorative only, not real containers.',
-  buatH:'Build the command',buatIntro:'Enter the vessel sheet name and the skill details, then click Open in Claude Code. The command is pre-filled; just press Enter.',
+  buatH:'Build the command',buatIntro:'Enter the vessel sheet name and the skill details, then copy the command into Claude Code in the CS PROJECT folder.',
   sheetLabel:'Vessel sheet name',req:'required',opt:'optional',sheetHint:'Must match the sheet name in the report exactly, e.g. [vessel].[voyage].',
-  outLabel:'Command',copyBtn:'Copy command',openBtn:'Open in Claude Code',cwdLabel:'Working folder',cwdHint:'Path of the CS PROJECT folder on this computer, remembered in this browser. Empty = Claude Code opens in the user home folder.',opened:'Claude Code opens with the command pre-filled. Press Enter there. The command was also copied.',tooLong:'The command is over 5,000 characters. Use Copy command.',need:'Complete the required details first.',copied:'Command copied. Paste it into Claude Code.',selected:'Command selected. Press Ctrl+C to copy.',
+  outLabel:'Command',copyBtn:'Copy command',need:'Complete the required details first.',copied:'Command copied. Paste it into Claude Code.',selected:'Command selected. Press Ctrl+C to copy.',
   beforeH:'Before you run',resultH:'Result',readyAll:'Ready to run',readyN:(d,n)=>d+' of '+n+' ready',chosen:'Selected',
   detail:c=>'Details '+c,defPh:d=>'default: '+d,defPhNo:'default: vessel code + .xls',scopeAll:'ALL (all bookings)',scopeX:'Specific bookings',scopePh:'booking numbers, separated by commas',
   footL:'PT HEUNGALINE INTERNASIONAL · CS Booking Division · Jakarta Branch',upd:'Updated',months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -640,9 +632,9 @@ const UI = {
  ko:{motionPause:'애니메이션 일시정지',motionPlay:'애니메이션 재생',lede:'PROFORMA LOADING 리포트용 빠른 명령<br>Customer Service Export<br>Jakarta Branch',
   sReport:'리포트',sTerminal:'터미널',sService:'서비스',sActive:'활성 스킬',
   pilihH:'스킬 선택',pilihIntro:'컨테이너 하나가 스킬 하나입니다. 마지막 선택은 이 브라우저에 저장됩니다.',caption:'컨테이너 번호는 장식용이며 실제 컨테이너가 아닙니다.',
-  buatH:'명령 만들기',buatIntro:'선박 시트 이름과 스킬 세부 항목을 입력한 뒤 Claude Code에서 열기를 누르세요. 명령이 미리 입력되어 있으니 Enter만 누르면 됩니다.',
+  buatH:'명령 만들기',buatIntro:'선박 시트 이름과 스킬 세부 항목을 입력한 뒤, CS PROJECT 폴더의 Claude Code에 명령을 복사해 붙여넣으세요.',
   sheetLabel:'선박 시트 이름',req:'필수',opt:'선택',sheetHint:'리포트의 시트 이름과 정확히 같아야 합니다. 예: [vessel].[voyage].',
-  outLabel:'명령',copyBtn:'명령 복사',openBtn:'Claude Code에서 열기',cwdLabel:'작업 폴더',cwdHint:'이 컴퓨터의 CS PROJECT 폴더 경로이며 이 브라우저에 저장됩니다. 비워 두면 사용자 홈 폴더에서 열립니다.',opened:'명령이 입력된 Claude Code가 열립니다. 거기서 Enter를 누르세요. 명령도 복사되었습니다.',tooLong:'명령이 5,000자를 넘습니다. 명령 복사를 사용하세요.',need:'필수 항목을 먼저 입력하세요.',copied:'명령이 복사되었습니다. Claude Code에 붙여넣으세요.',selected:'명령이 선택되었습니다. Ctrl+C를 눌러 복사하세요.',
+  outLabel:'명령',copyBtn:'명령 복사',need:'필수 항목을 먼저 입력하세요.',copied:'명령이 복사되었습니다. Claude Code에 붙여넣으세요.',selected:'명령이 선택되었습니다. Ctrl+C를 눌러 복사하세요.',
   beforeH:'실행 전 확인',resultH:'결과',readyAll:'실행 준비 완료',readyN:(d,n)=>n+'개 중 '+d+'개 준비',chosen:'선택됨',
   detail:c=>c+' 세부 항목',defPh:d=>'기본값: '+d,defPhNo:'기본값: 선박 코드 + .xls',scopeAll:'ALL (모든 부킹)',scopeX:'특정 부킹',scopePh:'부킹 번호를 쉼표로 구분',
   footL:'PT HEUNGALINE INTERNASIONAL · CS 부킹 부서 · 자카르타 지점',upd:'업데이트',months:null,
@@ -760,18 +752,17 @@ function boxNo(i){
 }
 
 /* ---------- State ---------- */
-const state = {skill:ORDER[0], sheet:'', cwd:'', vals:{}, checks:{}};
+const state = {skill:ORDER[0], sheet:'', vals:{}, checks:{}};
 function load(){
   try{
     const o = JSON.parse(localStorage.getItem(KEY) || '{}');
     if(o && SKILLS[o.skill]) state.skill = o.skill;
     if(o && typeof o.sheet === 'string') state.sheet = o.sheet;
-    if(o && typeof o.cwd === 'string') state.cwd = o.cwd;
   }catch(e){}
   try{ const l = localStorage.getItem(LKEY); if(LANGS.includes(l)) LANG = l; }catch(e){}
 }
 function save(){
-  try{ localStorage.setItem(KEY, JSON.stringify({skill:state.skill, sheet:state.sheet, cwd:state.cwd})); }catch(e){}
+  try{ localStorage.setItem(KEY, JSON.stringify({skill:state.skill, sheet:state.sheet})); }catch(e){}
 }
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -891,17 +882,6 @@ function build(sk){
 }
 
 let cur = {ok:false, text:''};
-/* tautan claude-cli://open: q = perintah (maks 5.000 karakter), cwd = folder kerja (opsional) */
-function ccUrl(){
-  const cwd = ((document.getElementById('cwd') || {}).value || '').trim();
-  return 'claude-cli://open?' + (cwd ? 'cwd=' + encodeURIComponent(cwd) + '&' : '') + 'q=' + encodeURIComponent(cur.text);
-}
-function updateOpen(){
-  const a = document.getElementById('openCC'); if(!a) return;
-  const ok = cur.ok && cur.text.length <= 5000;
-  a.setAttribute('aria-disabled', String(!ok));
-  a.setAttribute('href', ok ? ccUrl() : '#');
-}
 function renderOutput(){
   const sk = state.skill, s = S(sk); cur = build(sk);
   const box = $('cmd'); box.textContent = '';
@@ -912,7 +892,6 @@ function renderOutput(){
     const sp = document.createElement('span'); if(p.miss) sp.className = 'miss'; sp.textContent = p.t; box.appendChild(sp);
   });
   $('copy').disabled = !cur.ok;
-  updateOpen();
   $('copyStatus').textContent = cur.ok ? '' : t('need');
   document.querySelectorAll('#fields input[data-ph]').forEach(inp => {
     const f = s.fields.find(x => x.id === inp.dataset.f);
@@ -987,14 +966,6 @@ function bind(){
   $('before').addEventListener('change', e => {
     const i = e.target.dataset.i; if(i === undefined) return;
     (state.checks[state.skill] || (state.checks[state.skill] = {}))[i] = e.target.checked; updateReady();
-  });
-  $('cwd').addEventListener('input', e => { state.cwd = e.target.value; save(); updateOpen(); });
-  $('openCC').addEventListener('click', e => {
-    if(!cur.ok){ e.preventDefault(); $('copyStatus').textContent = t('need'); return; }
-    if(cur.text.length > 5000){ e.preventDefault(); $('copyStatus').textContent = t('tooLong'); return; }
-    /* tautan dibiarkan berjalan; perintah juga disalin sebagai cadangan bila Claude Code tidak terbuka */
-    try{ navigator.clipboard.writeText(cur.text).catch(() => {}); }catch(err){}
-    $('copyStatus').textContent = t('opened');
   });
   $('copy').addEventListener('click', async () => {
     if(!cur.ok) return;
@@ -1193,7 +1164,6 @@ document.querySelector('.lang').addEventListener('click', e => { const b = e.tar
 load();
 renderMeta(); renderBay(); renderManifest();
 $('sheet').value = state.sheet;
-$('cwd').value = state.cwd;
 renderPanel(); bind(); initHero(); initSky(); initSectionIcons(); initRail(); initCursor();
 applyStatic();
 </script>
